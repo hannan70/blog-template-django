@@ -1,0 +1,170 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+
+
+{% block content %}
+    <style>
+        button.later_btn {
+            width: 161px;
+            height: 45px;
+        }
+</style>
+    <!-- search modal start -->
+    {% include 'inc/search-model.html' %}
+    <!-- search modal start -->
+
+
+    <!-- single post section start here -->
+    <div class="single__post__section" style="margin-bottom: 100px">
+        <div class="container">
+            <div class="blog__post__item">
+                <div class="row">
+                    <div class="col-md-12 blog-post">
+                        <div class="blog-post-wraper-top">
+                            <div class="blog-inspiration">
+                                <a href="#">{{ post.category.category_name|title }}</a>
+                            </div>
+                            <div class="read_later">
+                                <form action="{% url 'read-later' %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" value="{{ post.id }}" name="post_id" >
+                                    <button type="submit" class="later_btn" >
+                                        {% if save_for_later %}
+                                            Remove Later
+                                        {% else %}
+                                            Read Later
+                                        {% endif %}
+                                        </button>
+                                </form>
+                            </div>
+                            <div class="blog-title">
+                                <a href="#">{{ post.post_title }}</a>
+                            </div>
+                            <div class="blog-info">
+                                <ul>
+                                    <li><a href="#">By {{ post.author.first_name }} {{ post.author.last_name }}</a></li>
+                                    <li>-</li>
+                                    <li> Novermber 6 1018</li>
+                                    <li>-</li>
+                                    <li><a href="#">4 comment</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="blog-post-image">
+                            <a href="#"><img src="{{ post.post_image.url }}" alt=""></a>
+                        </div>
+                        <div class="single__post__section__inner">
+                            <div class="para">
+                                <p> {{ post.post_content }}</p>
+                            </div>
+
+
+                            <div class="social__sector">
+                                <div class="tags">
+                                    <ul>
+                                        <li>Tags: </li>
+                                        <li><a href="#">Arts</a></li>
+                                        <li><a href="#">Creative</a></li>
+                                    </ul>
+                                </div>
+                                <div class="socials">
+                                    <ul>
+                                        <li>Share: </li>
+                                        <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                                        <li><a href="#"><i class="fa-brands fa-twitter-square"></i></a></li>
+                                        <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
+                                        <li><a href="#"><i class="fa-brands fa-youtube-square"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                            <div class="author__section">
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <img class="author__img" src="{% static 'assets/image/Daniel_anry.jpg' %}" alt="">
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <div class="author__written__content">
+                                            <h4> WRITTEN BY DANIEL ANRI</h4>
+                                            <p>
+                                                Massa est vehicula mauris dignissim vulputate turpis massa,
+                                                eget sociis nonummy tristique at suscipit quis natoque dolor
+                                                penatibus praesent odio nisi erat. Consequat eget cubilia.
+                                                Mi elementum augue. Nisi sociis.
+                                            </p>
+                                            <ul>
+                                                <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                                                <li><a href="#"><i class="fa-brands fa-twitter-square"></i></a></li>
+                                                <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
+                                                <li><a href="#"><i class="fa-brands fa-youtube-square"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="blog__three__post">
+                                <h5 class="mb-4">Related Post</h5>
+                                <div class="row">
+                                     {% for related_post in related_posts %}
+                                        <div class="col-sm-4 blog__three__post__paddingunder">
+                                            <a href="{% url 'single-post' post.slug %}"><img src="{{ related_post.post_image.url  }}" alt=""></a>
+                                            <a class="title" href="{% url 'single-post' post.slug %}"><p>{{ related_post.post_title|title }}</p></a>
+                                            <p class="dates">{{ related_post.date }}</p>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div class="single__post__comment__section__comments">
+                                <p>{{ total_comment }} COMMENTS</p>
+                                {% for comment in comments %}
+                                <div class="row comments__common">
+                                    <div class="col-md-2">
+                                        <div class="comment__owner__profile">
+                                            <img src="{% static 'assets/image/Daniels_comment.jpg' %}" alt="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="comment__owner">
+                                            <div class="comment__owner__detail">
+                                                <a href="#">{{ comment.username|title }}</a>
+                                                <p>{{ comment.comment_date }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="comment__content">
+                                            <p>
+                                                {{ comment.comment_content }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+
+
+                            </div>
+                            <div class="single__post__comment__section">
+                                <div class="post__title">
+                                    <p>Leave A Comment</p>
+                                </div>
+                                <form action="{% url 'single-post' post.slug %}" method="POST">
+                                    {% csrf_token %}
+                                     {% for field in form %}
+                                        {{ field.label_tag }}
+                                        {{ field }}
+                                        {{ field.errors }}
+                                    {% endfor %}
+                                    <button type="submit">POST COMMENT</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- single post section end here -->
+
+
+{% endblock %}

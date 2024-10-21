@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+{% block content %}
+<style>
+    .store_post {
+        text-align: center;
+        margin: 100px 0px;
+    }
+
+    .stored_para p {
+        font-size: 25px;
+        font-weight: 500;
+    }
+</style>
+
+<div class="container">
+     <div class="store_post">
+        {% if not has_posts %}
+           <div class="stored_para">
+                <p>You didn't save any posts for later</p>
+           </div>
+        {% endif %}
+        <div class="row g-4">
+            {% for post in posts %}
+            <div class="col-md-4 blog-post">
+                <div class="blog__post__item">
+                    <div class="blog-post-wraper-top">
+                    <div class="blog-inspiration">
+                        <a href="#">{{ post.category.category_name|title }}</a>
+                    </div>
+                    <div class="blog-title">
+                        <a href="{% url 'single-post' post.slug %}">{{ post.post_title|truncatewords:5 }}</a>
+                    </div>
+                    <div class="blog-info">
+                        <ul>
+                            <li><a href="#">By {{ post.author.first_name }} {{ post.author.last_name }} </a></li>
+                            <li class="display__will__hidden">-</li>
+                            <li>{{ post.date }}</li>
+                            <li class="display__will__hidden">-</li>
+                            <li><a href="#">{{ post.total_comment }} comment  </a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="blog-post-image">
+                    <a href="{% url 'single-post' post.slug %}"><img src="{{ post.post_image.url }}" alt=""></a>
+                </div>
+                <div class="blog-post-wraper-bottom">
+                    <div class="blog-paragraph">
+                        <p>{{ post.post_content|truncatewords:20 }}</p>
+                    </div>
+                    <a href="{% url 'single-post' post.slug %}">Read More</a>
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

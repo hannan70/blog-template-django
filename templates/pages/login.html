@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<div class="container" style="margin-top: 100px; margin-bottom: 100px">
+    <div class="auth_form">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card p-5">
+                    <h2 class="mb-4 text-center">Login</h2>
+                    <form action="">
+                        <input type="text" name="username" placeholder="Username" class="form-control mb-4">
+                        <input type="text" name="password" placeholder="Enter Password" class="form-control mb-4">
+                        <button class="auth_btn">Login</button>
+                        <p class="auth_text"> Don't Have a account <a href="{% url 'register' %}">Register</a> </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

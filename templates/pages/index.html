@@ -1,0 +1,220 @@
+
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .blog_title a {
+        text-decoration: none;
+        margin-top: 10px;
+        display: inline-block;
+        text-align: start;
+        font-size: 22px;
+        font-weight: 500;
+        color: #000;
+    }
+    li.active a {
+        background: orange !important;
+    }
+</style>
+
+   {% include 'inc/search-model.html' %}
+
+    {% include 'inc/banner.html' %}
+
+
+    <!-- blog post grid start here -->
+    <div class="blog__post__grid">
+        <div class="container">
+            <div class="blog__post__grid__inner">
+                <div class="row">
+                    <div class="col-lg-9 col-md-8 col-md-12">
+                        <div id="content">
+                            <!-- blog post start-->
+                                <div class="row g-4">
+                                    <!-- First line of blog-post start -->
+
+                                    {% for post in posts %}
+
+                                    <div class="col-md-6 blog-post">
+                                        <div class="blog__post__item">
+                                            <div class="blog-post-wraper-top">
+                                            <div class="blog-inspiration">
+                                                <a href="#">{{ post.category.category_name|title }}</a>
+                                            </div>
+                                            <div class="blog-title">
+                                                <a href="{% url 'single-post' post.slug %}">{{ post.post_title|truncatewords:5 }}</a>
+                                            </div>
+                                            <div class="blog-info">
+                                                <ul>
+                                                    <li><a href="#">By {{ post.author.first_name }} {{ post.author.last_name }} </a></li>
+                                                    <li class="display__will__hidden">-</li>
+                                                    <li>{{ post.date }}</li>
+                                                    <li class="display__will__hidden">-</li>
+                                                    <li><a href="#">{{ post.total_comment }} comment  </a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="blog-post-image">
+                                            <a href="{% url 'single-post' post.slug %}"><img src="{{ post.post_image.url }}" alt=""></a>
+                                        </div>
+                                        <div class="blog-post-wraper-bottom">
+                                            <div class="blog-paragraph">
+                                                <p>{{ post.post_content|truncatewords:20 }}</p>
+                                            </div>
+                                            <a href="{% url 'single-post' post.slug %}">Read More</a>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <!-- First line of blog-post end -->
+                                    {% endfor %}
+                                     <!-- pagination section start here -->
+                                    <div class="pagination__section">
+                                            <div class="pagination__section__inner">
+                                                {% if posts.has_other_pages %}
+                                                    <ul>
+                                                        {% if posts.has_previous %}
+                                                            <li>
+                                                                <a href="?page={{ posts.previous_page_number  }}"><i class="fa-solid fa-arrow-left-long"></i></a>
+                                                            </li>
+                                                        {% else %}
+                                                            <li class="disabled">
+                                                                <a class="page-link" href="#"><i class="fa-solid fa-arrow-left-long"></i></a>
+                                                            </li>
+                                                        {% endif %}
+
+                                                        {% for i in posts.paginator.page_range  %}
+                                                            {% if posts.number == i %}
+                                                                <li class="active"><a href="#">{{ i }}</a></li>
+                                                            {% else %}
+                                                                <li><a href="?page={{i}}">{{ i }}</a></li>
+                                                            {% endif %}
+                                                        {% endfor %}
+
+                                                        {% if posts.has_next %}
+                                                            <li><a href="?page={{ posts.next_page_number }}"><i class="fa-solid fa-arrow-right-long"></i></a></li>
+                                                        {% else %}
+                                                            <li class="disabled"><a href="#"><i class="fa-solid fa-arrow-right-long"></i></a></li>
+                                                        {% endif %}
+
+                                                    </ul>
+                                                    {% endif %}
+                                            </div>
+                                    </div>
+                                    <!-- pagination section end here -->
+                                </div>
+                            <!-- blog post end -->
+                        </div>
+                    </div>
+                    <!-- sidebar  start-->
+                    <div class="col-lg-3 col-md-4 col-md-12 ">
+                        <div id="sidebarWrap">
+                            <div id="sidebar">
+                                <div class="sub-sidebar-one">
+                                    <div class="slidebar-aboutme">
+                                        <h3>About Me</h3>
+                                    </div>
+                                    <div class="slidebar-image">
+                                        <a href="#"><img src="{% static 'assets/image/img7.jpg' %}" alt=""></a>
+                                    </div>
+                                    <div class="sidebar-para">
+                                        <p>Duis pretium convallis odio non varius. Nulla quis lorem metus</p>
+                                    </div>
+                                    <div class="sidebar-readmore">
+                                        <a href="#">Read More</a>
+                                    </div>
+                                </div>
+                                <div class="sub-sidebar-two">
+                                    <div class="sub-sidebar-follow">
+                                        <p>follow me</p>
+                                    </div>
+                                    <div class="sub-sidebar-social">
+                                        <ul>
+                                            <li><a href="#"><i class="fa-brands fa-facebook"></i></a></li>
+                                            <li><a href="#"><i class="fa-brands fa-twitter-square"></i></a></li>
+                                            <li><a href="#"><i class="fa-brands fa-linkedin"></i></a></li>
+                                            <li><a href="#"><i class="fa-brands fa-youtube-square"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="sub-sidebar-subscribe">
+                                    <!-- <div class="sidebar-follow-us">
+                                        <p>Follow Us</p>
+                                    </div> -->
+                                    <div class="sidebar-newsletter">
+                                        <p class="sletter">New Sletter</p>
+                                        <p class="fill-mail">Fill Your E-mail below to subscribe to my newsletter</p>
+                                        <form action="">
+                                            <input type="email" placeholder="Email">
+                                            <button class="form_btn">Subscribe</button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div class="sidebar-popularpost-section">
+                                    <div class="sidebar-popularpost-section-title">
+                                        <p class="popular-post-title">Popular Post</p>
+                                    </div>
+                                    {% for popular_post in popular_posts %}
+                                    <div class="sidebar-post">
+                                        <div class="sidebar-post-img-section">
+                                            <img src="{{ popular_post.post_image.url }}" alt="image">
+                                        </div>
+                                        <div class="sidebar-post-para-section">
+                                            <div class="blog_title">
+                                                <a href="">{{ popular_post.post_title|title }}</a>
+                                            </div>
+                                            <p class="post-details"> {{ popular_post.author.first_name }} {{ popular_post.author.last_name }}, {{ popular_post.date }}</p>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+
+
+                                </div>
+
+
+                                <div class="sub-sidebar-banner">
+                                    <img src="{% static 'assets/image/sidebar_banner1.jpg' %}" alt="">
+                                </div>
+
+                                <div class="category-section">
+                                    <div class="categorie-title">
+                                        <p>CATEGORY</p>
+                                    </div>
+                                    <div class="category-list">
+                                        <ul>
+                                             {% for category in categories %}
+                                            <li><a href="#">{{ category.category_name|title }}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="recent-post-section mt-5">
+                                    <p class="recent-post-title">RECENT POST</p>
+
+                                    {% for resented_post in resented_posts %}
+                                    <div class="recent-post-desc">
+                                        <img src="{{ resented_post.post_image.url }}" alt="">
+                                        <p class="blog_title">
+                                            <a href="">{{ resented_post.post_title|title }}</a>
+                                        </p>
+                                        <p class="jane">{{ resented_post.author.first_name }} {{ resented_post.author.last_name }},&nbsp; {{ resented_post.date }}</p>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- sidebar  end-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- blog post grid end here -->
+
+
+
+{% endblock %}

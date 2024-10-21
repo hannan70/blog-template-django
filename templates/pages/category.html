@@ -1,0 +1,65 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+    {% include 'inc/banner.html' %}
+
+
+    <!-- category grid section start here -->
+    <div class="category__grid__section">
+        <div class="container">
+            {% for post in posts %}
+            <div class="category__grid__section__inner">
+                <div class="row">
+                    <div class="col-lg-6 col-md-12">
+                        <div class="category__grid__img">
+                            <a href="{% url 'single-post' post.slug %}"><img src="{{ post.post_image.url }}" alt=""></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12">
+                        <div class="category__grid__desc">
+                            <div class="category__info">
+                                <ul>
+                                    <li>{{ post.date }}</li>
+                                    <li><a href="#">-</a></li>
+                                    <li><a href="{% url 'single-post' post.slug %}">{{ post.category.category_name|title }}</a></li>
+                                    <li><a href="#">-</a></li>
+                                    <li><a href="#">{{ post.total_comment }} COMMENTS</a></li>
+                                </ul>
+                            </div>
+                            <div class="category__details">
+                                <a class="h4" href="{% url 'single-post' post.slug %}">{{ post.post_title }}</a>
+                                <p>{{ post.post_content|truncatewords:40 }}</p>
+                                <a class="readmore" href="{% url 'single-post' post.slug %}">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           {% endfor %}
+        </div>
+    </div>
+    <!-- category grid section end here -->
+
+
+    <!-- pagination section start here -->
+    <div class="pagination__section">
+        <div class="container">
+            <div class="pagination__section__inner">
+                <ul>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">...</a></li>
+                    <li><a href="#"><i class="fa-solid fa-arrow-right-long"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- pagination section end here -->
+{% endblock %}

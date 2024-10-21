@@ -1,0 +1,110 @@
+
+ <!DOCTYPE html>
+ {% load static %}
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Blog Site</title>
+
+     <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
+
+     <link rel="stylesheet" href="{% static 'assets/css/all.min.css' %}">
+     <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+     <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Cookie&family=Festive&family=IBM+Plex+Sans+Thai+Looped:wght@300&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playfair+Display:ital,wght@1,400;1,700;1,800&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}">
+     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" type="text/css" />
+     <link rel="stylesheet" href="{% static 'assets/css/animate.css' %}">
+     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+     <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+ </head>
+ <body>
+
+     <!-- header section start here-->
+    <div id="header">
+        <div class="container">
+            <div id="fixedHeader">
+                <div class="fixedHeader__top">
+                    <div class="Header__top__icon">
+                        <a href="#"><i class="fa-brands fa-facebook-f" ></i></a>
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                    <div class="Header__top__logo">
+                        <a href="/">Westa.</a>
+                        <p>Personal Blog Templete</p>
+                    </div>
+                    <div class="Header__top__searchbar">
+                        <a data-bs-toggle="modal" href="#exampleModalToggle"><i class="fa-solid fa-magnifying-glass"></i></a>
+                        <i class="fa-solid fa-align-justify"></i>
+                    </div>
+                </div>
+                <div class="fixedHeader__bottom">
+                    <ul>
+                        <li><a class="{% if request_path == '/'  %} active {% endif %}" href="/">HOME</a> </li>
+                        <li><a class="{% if request_path == '/category/'  %} active {% endif %}" href="{% url 'category' %}">CATEGORY</a></li>
+                        <li><a class="{% if request_path == '/about/'  %} active {% endif %}" href="{% url 'about' %}">ABOUT ME</a></li>
+                        <li><a class="{% if request_path == '/contact/'  %} active {% endif %}" href="{% url 'contact' %}"> CONTACT</a></li>
+                        <li><a class="{% if request_path == '/read-later/'  %} active {% endif %}" href="{% url 'read-later' %}"> STORE POST</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- header section end here-->
+
+
+    <!-- mobile menu start here -->
+    <div id="mobile__header">
+        <div class="container">
+            <div id="mobile__fixedHeader">
+                <div class="mobile__fixedHeader__top">
+                    <div class="mobile__Header__top__searchbar">
+                        <a data-bs-toggle="modal" href="#exampleModalToggle"><i class="fa-solid fa-magnifying-glass"></i></a>
+                        <div class="mobile__Header__top__logo">
+                            <a href="home.html">Westa.</a>
+                            <p>Personal Blog Templete</p>
+                        </div>
+                        <a href="#"><i class="fa-solid fa-align-justify menu__bar"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mobile__menu">
+        <ul>
+            <li>
+                <div class="down__arrow">
+                    <a class="active drop__home" href="#">HOME</a>
+                    <i class="fa-solid fa-angle-down home"></i>
+                </div>
+                <ul class="home__ul">
+                    <li><a href="home.html">Home Fullwidth</a></li>
+                    <li><a href="#">Home Grid</a></li>
+                    <li><a href="error.html">404 Page</a></li>
+                    <li><a href="single_post.html">Single Post</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="down__arrow">
+                    <a class="active drop__lifestyle" href="#">LIFESTYLE</a>
+                    <i class="fa-solid fa-angle-down lifestyle"></i>
+                </div>
+                <ul class="lifestyle__ul">
+                    <li><a href="category_list.html">Categorie List</a></li>
+                </ul>
+            </li>
+            <li><a href="journey.html">JOURNEY</a></li>
+            <li><a href="inspiration.html">INSPIRATION</a></li>
+            <li><a href="about.html">ABOUT ME</a></li>
+            <li><a href="contact.html"> CONTACT</a></li>
+        </ul>
+    </div>
+    <!-- mobile menu end here -->

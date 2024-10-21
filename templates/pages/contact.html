@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block content %}
+    <!-- about section start here -->
+    <div class="about__section" style="margin: 100px 0px">
+        <div class="container">
+            <div class="about__section__inner">
+                <div class="about__image">
+                    <!-- map section start here -->
+                    <div class="map__section">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14604.929175165831!2d90.36542960000001!3d23.774741049999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbd!4v1646732934665!5m2!1sen!2sbd"
+                        style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                    <!-- map section end here -->
+                </div>
+                <!-- comment section start here -->
+                <div class="single__post__comment__section">
+                    <div class="container">
+                        <div class="single__post__comment__section__inner">
+                            <div class="post__title">
+                                <p class="contact">Contact</p>
+                                <span>Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                    Neque sit sequi nam non adipisci fugiat, sed quo molestiae
+                                    minus praesentium ut hic facere veniam aliquam excepturi
+                                    omnis alias asperiores, numquam fugit distinctio quos? Iste
+                                    recusandae tenetur, molestiae delectus vel earum eligendi
+                                    rerum unde eaque praesentium doloremque ipsum rem saepe sunt.
+                                    Ad suscipit repellendus doloremque alias eligendi, voluptatibus
+                                    numquam quibusdam eveniet, asperiores amet optio debitis omnis
+                                    at velit maiores eaque fugiat ducimus error, harum ut. Nam
+                                    eligendi odio distinctio corrupti consequuntur aspernatur totam
+                                    sit pariatur illum at officia nihil voluptates odit necessitatibus
+                                    ipsam placeat reprehenderit, facilis perferendis ex consequatur a
+                                    provident.
+                                </span>
+                            </div>
+                            <form action="/contact/" method="POST">
+                                 {% csrf_token %}
+                                {% for field in form %}
+                                    {{ field.label_tag }}
+                                    {{ field }}
+                                    {{ field.errors }}
+                                {% endfor %}
+
+                                <button type="submit">CONTACT US</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- comment section end here -->
+            </div>
+        </div>
+    </div>
+    <!-- about section end here -->
+
+{% endblock %}
